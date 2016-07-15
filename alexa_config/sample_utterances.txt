@@ -14,4 +14,4 @@ WhatsMyColorIntent yes
 WhatsMyColorIntent yup
 WhatsMyColorIntent sure
 WhatsMyColorIntent yes please
-MyColorIsIntent my favorite color is {Color}
+describeMemberIntent my favorite color is {Color}

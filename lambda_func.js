@@ -78,7 +78,7 @@ function onIntent(intentRequest, session, callback) {
         intentName = intentRequest.intent.name;
 
     // Dispatch to your skill's intent handlers
-    if ("MyColorIsIntent" === intentName) {
+    if ("describeMemberIntent" === intentName) {
         setColorInSession(intent, session, callback);
     } else if ("WhatsMyColorIntent" === intentName) {
         getColorFromSession(intent, session, callback);

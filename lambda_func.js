@@ -78,10 +78,10 @@ function onIntent(intentRequest, session, callback) {
         intentName = intentRequest.intent.name;
 
     // Dispatch to your skill's intent handlers
-    if ("MyColorIsIntent" === intentName) {
-        setColorInSession(intent, session, callback);
-    } else if ("WhatsMyColorIntent" === intentName) {
-        getColorFromSession(intent, session, callback);
+    if ("DescribeMemberIntent" === intentName) {
+        describeTeamMember(intent, session, callback);
+    } else if ("PoliteFinishIntent" === intentName) {
+        politeFinish(intent, session, callback);
     } else if ("AMAZON.HelpIntent" === intentName) {
         getWelcomeResponse(callback);
     } else if ("AMAZON.StopIntent" === intentName || "AMAZON.CancelIntent" === intentName) {
@@ -107,12 +107,12 @@ function getWelcomeResponse(callback) {
     // If we wanted to initialize the session to have some attributes we could add those here.
     var sessionAttributes = {};
     var cardTitle = "Welcome";
-    var speechOutput = "Welcome to the Alexa Skills Kit sample. " +
-        "Please tell me your favorite color by saying, my favorite color is red";
+    var speechOutput = "Hi. I'm a close friend of the Glean team! " +
+        "Who would you like to know about?";
     // If the user either does not reply to the welcome message or says something that is not
     // understood, they will be prompted again with this text.
-    var repromptText = "Please tell me your favorite color by saying, " +
-        "my favorite color is red";
+    var repromptText = "Sorry, I didn't get that, please say " +
+        "tell me about Ajay.";
     var shouldEndSession = false;
 
     callback(sessionAttributes,
@@ -121,7 +121,7 @@ function getWelcomeResponse(callback) {
 
 function handleSessionEndRequest(callback) {
     var cardTitle = "Session Ended";
-    var speechOutput = "Thank you for trying the Alexa Skills Kit sample. Have a nice day!";
+    var speechOutput = "You're welcome.I hope you know the Glean Team a bit better now. Have a nice day!";
     // Setting this to true ends the session and exits the skill.
     var shouldEndSession = true;
 
@@ -131,54 +131,36 @@ function handleSessionEndRequest(callback) {
 /**
  * Sets the color in the session and prepares the speech to reply to the user.
  */
-function setColorInSession(intent, session, callback) {
+function describeTeamMember(intent, session, callback) {
     var cardTitle = intent.name;
-    var favoriteColorSlot = intent.slots.Color;
+    var teamMemberSlot = intent.slots.TeamMember;
     var repromptText = "";
     var sessionAttributes = {};
     var shouldEndSession = false;
     var speechOutput = "";
 
-    if (favoriteColorSlot) {
-        var favoriteColor = favoriteColorSlot.value;
-        sessionAttributes = createFavoriteColorAttributes(favoriteColor);
-        speechOutput = "I now know your favorite color is " + favoriteColor + ". You can ask me " +
-            "your favorite color by saying, what's my favorite color?";
-        repromptText = "You can ask me your favorite color by saying, what's my favorite color?";
+    if (teamMemberSlot) {
+        var teamMember = teamMemberSlot.value;
+        speechOutput = buildMemberDescription(teamMember);
+        repromptText = "You can ask me about any of the team.";
     } else {
-        speechOutput = "I'm not sure what your favorite color is. Please try again";
-        repromptText = "I'm not sure what your favorite color is. You can tell me your " +
-            "favorite color by saying, my favorite color is red";
+        speechOutput = "I'm not sure who you mean. Please try again";
+        repromptText = "I'm not sure who you mean. You can ask me about " +
+            "anyone in the Glean team by saying, describe Tamar";
     }
 
     callback(sessionAttributes,
          buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
-function createFavoriteColorAttributes(favoriteColor) {
-    return {
-        favoriteColor: favoriteColor
-    };
-}
-
-function getColorFromSession(intent, session, callback) {
-    var favoriteColor;
+function politeFinish(intent, session, callback) {
     var repromptText = null;
     var sessionAttributes = {};
-    var shouldEndSession = false;
+    var shouldEndSession = true;
     var speechOutput = "";
 
-    if (session.attributes) {
-        favoriteColor = session.attributes.favoriteColor;
-    }
 
-    if (favoriteColor) {
-        speechOutput = "Your favorite color is " + favoriteColor + ". Goodbye.";
-        shouldEndSession = true;
-    } else {
-        speechOutput = "I'm not sure what your favorite color is, you can say, my favorite color " +
-            " is red";
-    }
+    speechOutput = "You're welcome, I hope you know the team a bit better now - I think they're awesome. Goodbye.";
 
     // Setting repromptText to null signifies that we do not want to reprompt the user.
     // If the user does not respond or says something that is not understood, the session
@@ -188,6 +170,30 @@ function getColorFromSession(intent, session, callback) {
 }
 
 // --------------- Helpers that build all of the responses -----------------------
+
+function buildMemberDescription(memberName) {
+    console.log("buildMemberDescription memberName=" + memberName);
+    var myOpinion = "I don't think " + memberName + " is in the glean team." +
+        " Sounds like a douche.";
+    switch(memberName.toLowerCase()) {
+      case "ajay":
+          myOpinion = "The guy's a genius - obviously!";
+          break;
+      case "anne":
+          myOpinion = "She rocks like Easter island! AND she'll kick your ass at Taekwondo.";
+          break;
+      case "peter":
+          myOpinion = "Oh man! That dude, have you seen how awesome he is on a bike!";
+          break;
+      case "tamar":
+          myOpinion = "Tamar the rock chick? She's amazing. End of!";
+          break;
+      default:
+          break;
+    }
+    console.log("buildMemberDescription myOpinion=" + myOpinion);
+    return myOpinion;
+}
 
 function buildSpeechletResponse(title, output, repromptText, shouldEndSession) {
     return {

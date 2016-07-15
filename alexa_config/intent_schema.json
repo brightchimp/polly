@@ -1,16 +1,16 @@
 {
   "intents": [
     {
-      "intent": "MyColorIsIntent",
+      "intent": "DescribeMemberIntent",
       "slots": [
         {
-          "name": "Color",
-          "type": "LIST_OF_COLORS"
+          "name": "TeamMember",
+          "type": "LIST_OF_TEAM_MEMBERS"
         }
       ]
     },
     {
-      "intent": "WhatsMyColorIntent"
+      "intent": "PoliteFinishIntent"
     },
     {
       "intent": "AMAZON.HelpIntent"

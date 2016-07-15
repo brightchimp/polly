@@ -1,22 +1,10 @@
-WhatsMyColorIntent what's my favorite color
-WhatsMyColorIntent what is my favorite color
-WhatsMyColorIntent what's my color
-WhatsMyColorIntent what is my color
-WhatsMyColorIntent my color
-WhatsMyColorIntent my favorite color
-WhatsMyColorIntent get my color
-WhatsMyColorIntent get my favorite color
-WhatsMyColorIntent give me my favorite color
-WhatsMyColorIntent give me my color
-WhatsMyColorIntent what my color is
-WhatsMyColorIntent what my favorite color is
-WhatsMyColorIntent yes
-WhatsMyColorIntent yup
-WhatsMyColorIntent sure
-WhatsMyColorIntent yes please
+PoliteFinishIntent thanks
+PoliteFinishIntent thanks Alexa
+PoliteFinishIntent thanks Lexi
 DescribeMemberIntent describe {TeamMember}
 DescribeMemberIntent tell me about {TeamMember}
 DescribeMemberIntent what about {TeamMember}
 DescribeMemberIntent how about {TeamMember}
 DescribeMemberIntent what do you think of {TeamMember}
+DescribeMemberIntent what do you think about {TeamMember}
 DescribeMemberIntent what's {TeamMember} like

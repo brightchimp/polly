@@ -80,8 +80,8 @@ function onIntent(intentRequest, session, callback) {
     // Dispatch to your skill's intent handlers
     if ("DescribeMemberIntent" === intentName) {
         describeTeamMember(intent, session, callback);
-    } else if ("WhatsMyColorIntent" === intentName) {
-        getColorFromSession(intent, session, callback);
+    } else if ("PoliteFinishIntent" === intentName) {
+        politeFinish(intent, session, callback);
     } else if ("AMAZON.HelpIntent" === intentName) {
         getWelcomeResponse(callback);
     } else if ("AMAZON.StopIntent" === intentName || "AMAZON.CancelIntent" === intentName) {
@@ -121,7 +121,7 @@ function getWelcomeResponse(callback) {
 
 function handleSessionEndRequest(callback) {
     var cardTitle = "Session Ended";
-    var speechOutput = "I hope you know the Glean Team a bit better now. Have a nice day!";
+    var speechOutput = "You're welcome.I hope you know the Glean Team a bit better now. Have a nice day!";
     // Setting this to true ends the session and exits the skill.
     var shouldEndSession = true;
 
@@ -153,24 +153,14 @@ function describeTeamMember(intent, session, callback) {
          buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
-function getColorFromSession(intent, session, callback) {
-    var favoriteColor;
+function politeFinish(intent, session, callback) {
     var repromptText = null;
     var sessionAttributes = {};
-    var shouldEndSession = false;
+    var shouldEndSession = true;
     var speechOutput = "";
 
-    if (session.attributes) {
-        favoriteColor = session.attributes.favoriteColor;
-    }
 
-    if (favoriteColor) {
-        speechOutput = "Your favorite color is " + favoriteColor + ". Goodbye.";
-        shouldEndSession = true;
-    } else {
-        speechOutput = "I'm not sure what your favorite color is, you can say, my favorite color " +
-            " is red";
-    }
+    speechOutput = "You're welcome, I hope you know the team a bit better now - I think they're awesome. Goodbye.";
 
     // Setting repromptText to null signifies that we do not want to reprompt the user.
     // If the user does not respond or says something that is not understood, the session
@@ -185,18 +175,18 @@ function buildMemberDescription(memberName) {
     console.log("buildMemberDescription memberName=" + memberName);
     var myOpinion = "I don't think " + memberName + " is in the glean team." +
         " Sounds like a douche.";
-    switch(memberName) {
+    switch(memberName.toLowerCase()) {
       case "ajay":
           myOpinion = "The guy's a genius - obviously!";
           break;
       case "anne":
-          myOpinion = "She rocks! AND she'll kick your ass at Taekwondo.";
+          myOpinion = "She rocks like Easter island! AND she'll kick your ass at Taekwondo.";
           break;
       case "peter":
           myOpinion = "Oh man! That dude, have you seen how awesome he is on a bike!";
           break;
       case "tamar":
-          myOpinion = "Tamar the rock chick? A<break time=\"0.35s\"/> may <break time=\"0.35s\"/> zing. <break time=\"0.5s\"/> End of!";
+          myOpinion = "Tamar the rock chick? She's amazing. End of!";
           break;
       default:
           break;

@@ -10,7 +10,7 @@
       ]
     },
     {
-      "intent": "WhatsMyColorIntent"
+      "intent": "PoliteFinishIntent"
     },
     {
       "intent": "AMAZON.HelpIntent"

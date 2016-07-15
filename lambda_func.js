@@ -107,12 +107,12 @@ function getWelcomeResponse(callback) {
     // If we wanted to initialize the session to have some attributes we could add those here.
     var sessionAttributes = {};
     var cardTitle = "Welcome";
-    var speechOutput = "Welcome to the Alexa Skills Kit sample. " +
-        "Please tell me your favorite color by saying, my favorite color is red";
+    var speechOutput = "Hi. I'm a close friend of the Glean team! " +
+        "Who would you like to know about?";
     // If the user either does not reply to the welcome message or says something that is not
     // understood, they will be prompted again with this text.
-    var repromptText = "Please tell me your favorite color by saying, " +
-        "my favorite color is red";
+    var repromptText = "Sorry, I didn't get that, please say " +
+        "tell me about Ajay.";
     var shouldEndSession = false;
 
     callback(sessionAttributes,
@@ -121,7 +121,7 @@ function getWelcomeResponse(callback) {
 
 function handleSessionEndRequest(callback) {
     var cardTitle = "Session Ended";
-    var speechOutput = "Thank you for trying the Alexa Skills Kit sample. Have a nice day!";
+    var speechOutput = "I hope you know the Glean Team a bit better now. Have a nice day!";
     // Setting this to true ends the session and exits the skill.
     var shouldEndSession = true;
 
@@ -188,6 +188,29 @@ function getColorFromSession(intent, session, callback) {
 }
 
 // --------------- Helpers that build all of the responses -----------------------
+
+function buildMemberDescription(memberName) {
+    console.log("buildMemberDescription memberName=" + memberName);
+    var myOpinion = "I don't think " + memberName + " is in the glean team." +
+        " Sounds like a douche."
+    switch(expression) {
+      case "ajay":
+          myOpinion = "The guy's a genius - obviously!";
+          break;
+      case "anne":
+          myOpinion = "She rocks! AND she'll kick your ass at Taekwondo.";
+          break;
+      case "peter":
+          "Oh man! That dude, have you seen how awesome he is on a bike!";
+          break;
+      case "tamar":
+          "Tamar the rock chick? A<break time=\"0.35s\"/> may <break time=\"0.35s\"/> zing. <break time=\"0.5s\"/> End of!";
+          break;
+      default:
+          break;
+    }
+    return myOpinion;
+}
 
 function buildSpeechletResponse(title, output, repromptText, shouldEndSession) {
     return {

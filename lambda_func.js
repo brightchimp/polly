@@ -78,8 +78,8 @@ function onIntent(intentRequest, session, callback) {
         intentName = intentRequest.intent.name;
 
     // Dispatch to your skill's intent handlers
-    if ("describeMemberIntent" === intentName) {
-        setColorInSession(intent, session, callback);
+    if ("DescribeMemberIntent" === intentName) {
+        describeTeamMember(intent, session, callback);
     } else if ("WhatsMyColorIntent" === intentName) {
         getColorFromSession(intent, session, callback);
     } else if ("AMAZON.HelpIntent" === intentName) {
@@ -131,34 +131,26 @@ function handleSessionEndRequest(callback) {
 /**
  * Sets the color in the session and prepares the speech to reply to the user.
  */
-function setColorInSession(intent, session, callback) {
+function describeTeamMember(intent, session, callback) {
     var cardTitle = intent.name;
-    var favoriteColorSlot = intent.slots.Color;
+    var teamMemberSlot = intent.slots.TeamMember;
     var repromptText = "";
     var sessionAttributes = {};
     var shouldEndSession = false;
     var speechOutput = "";
 
-    if (favoriteColorSlot) {
-        var favoriteColor = favoriteColorSlot.value;
-        sessionAttributes = createFavoriteColorAttributes(favoriteColor);
-        speechOutput = "I now know your favorite color is " + favoriteColor + ". You can ask me " +
-            "your favorite color by saying, what's my favorite color?";
-        repromptText = "You can ask me your favorite color by saying, what's my favorite color?";
+    if (teamMemberSlot) {
+        var teamMember = teamMemberSlot.value;
+        speechOutput = buildMemberDescription(teamMember);
+        repromptText = "You can ask me about any of the team.";
     } else {
-        speechOutput = "I'm not sure what your favorite color is. Please try again";
-        repromptText = "I'm not sure what your favorite color is. You can tell me your " +
-            "favorite color by saying, my favorite color is red";
+        speechOutput = "I'm not sure who you mean. Please try again";
+        repromptText = "I'm not sure who you mean. You can ask me about " +
+            "anyone in the Glean team by saying, describe Tamar";
     }
 
     callback(sessionAttributes,
          buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
-}
-
-function createFavoriteColorAttributes(favoriteColor) {
-    return {
-        favoriteColor: favoriteColor
-    };
 }
 
 function getColorFromSession(intent, session, callback) {
@@ -192,8 +184,8 @@ function getColorFromSession(intent, session, callback) {
 function buildMemberDescription(memberName) {
     console.log("buildMemberDescription memberName=" + memberName);
     var myOpinion = "I don't think " + memberName + " is in the glean team." +
-        " Sounds like a douche."
-    switch(expression) {
+        " Sounds like a douche.";
+    switch(memberName) {
       case "ajay":
           myOpinion = "The guy's a genius - obviously!";
           break;
@@ -201,14 +193,15 @@ function buildMemberDescription(memberName) {
           myOpinion = "She rocks! AND she'll kick your ass at Taekwondo.";
           break;
       case "peter":
-          "Oh man! That dude, have you seen how awesome he is on a bike!";
+          myOpinion = "Oh man! That dude, have you seen how awesome he is on a bike!";
           break;
       case "tamar":
-          "Tamar the rock chick? A<break time=\"0.35s\"/> may <break time=\"0.35s\"/> zing. <break time=\"0.5s\"/> End of!";
+          myOpinion = "Tamar the rock chick? A<break time=\"0.35s\"/> may <break time=\"0.35s\"/> zing. <break time=\"0.5s\"/> End of!";
           break;
       default:
           break;
     }
+    console.log("buildMemberDescription myOpinion=" + myOpinion);
     return myOpinion;
 }
 

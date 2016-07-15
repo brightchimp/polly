@@ -1,11 +1,11 @@
 {
   "intents": [
     {
-      "intent": "describeMemberIntent",
+      "intent": "DescribeMemberIntent",
       "slots": [
         {
-          "name": "Color",
-          "type": "LIST_OF_COLORS"
+          "name": "TeamMember",
+          "type": "LIST_OF_TEAM_MEMBERS"
         }
       ]
     },

@@ -14,4 +14,9 @@ WhatsMyColorIntent yes
 WhatsMyColorIntent yup
 WhatsMyColorIntent sure
 WhatsMyColorIntent yes please
-describeMemberIntent my favorite color is {Color}
+DescribeMemberIntent describe {TeamMember}
+DescribeMemberIntent tell me about {TeamMember}
+DescribeMemberIntent what about {TeamMember}
+DescribeMemberIntent how about {TeamMember}
+DescribeMemberIntent what do you think of {TeamMember}
+DescribeMemberIntent what's {TeamMember} like

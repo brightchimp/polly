@@ -180,7 +180,7 @@ function buildMemberDescription(memberName) {
           myOpinion = "The guy's a genius - obviously!";
           break;
       case "anne":
-          myOpinion = "She rocks like Easter island! AND she'll kick your ass at Taekwondo.";
+          myOpinion = "Anne? She rocks like Easter island! AND she'll kick your ass at Taekwondo.";
           break;
       case "peter":
           myOpinion = "Oh man! That dude, have you seen how awesome he is on a bike!";
